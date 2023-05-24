@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doubleDimple.orderServer.mapper.OrdersMapper">
+
+	<!--实体映射-->
+	<resultMap id="base_result_map" type="common.entity.pojo.Orders">
+		<!---->
+		<id column="id" property="id"  />
+		<!---->
+		<result column="customer_name" property="customerName"  />
+		<!---->
+		<result column="product_name" property="productName"  />
+		<!---->
+		<result column="order_date" property="orderDate"  />
+		<!---->
+		<result column="total_amount" property="totalAmount"  />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="base_column_list">
+		 `id`,`customer_name`,`product_name`,`order_date`,`total_amount`
+	</sql>
+
+	<sql id="base_condition_filed">
+			<if test="id != null">
+				 and  `id` = #{id}
+			</if>
+			<if test="customerName != null and customerName !=''">
+				 and  `customer_name` = #{customerName}
+			</if>
+			<if test="productName != null and productName !=''">
+				 and  `product_name` = #{productName}
+			</if>
+			<if test="orderDate != null">
+				 and  `order_date` = #{orderDate}
+			</if>
+			<if test="totalAmount != null">
+				 and  `total_amount` = #{totalAmount}
+			</if>
+	</sql>
+	<!-- 通用条件列-->
+	<sql id="base_condition">
+	 <where> <include refid="base_condition_filed" />	 </where>
+	</sql>
+
+	<!-- 通用查询条件列-->
+	<sql id="query_condition">
+	 <where>
+			<include refid="base_condition_filed" />
+			<if test="customerNameFuzzy != null  and customerNameFuzzy != ''">
+				 and  `customer_name` like concat('%', #{customerNameFuzzy}, '%')
+			</if>
+			<if test="productNameFuzzy != null  and productNameFuzzy != ''">
+				 and  `product_name` like concat('%', #{productNameFuzzy}, '%')
+			</if>
+			<if test="orderDateStart != null and orderDateStart !='' ">
+				 <![CDATA[ and  `order_date`>=str_to_date('${orderDateStart}', '%Y-%m-%d') ]]>
+			</if>
+			<if test="orderDateEnd!= null and orderDateEnd!=''">
+				 <![CDATA[ and  `order_date`< date_sub(str_to_date('${orderDateEnd}','%Y-%m-%d'),interval -1 day) ]]>
+			</if>
+	 </where>
+	</sql>
+
+	<!-- 查询集合-->
+	<select id="selectList" resultMap="base_result_map" >
+		 SELECT <include refid="base_column_list" /> FROM `orders` <include refid="query_condition" />
+		 <if test="orderBy!=null">
+			 order by ${orderBy}
+		 </if>
+		 <if test="page!=null">
+			 limit #{page.start},#{page.end}
+		 </if>
+	</select>
+
+	<!-- 查询数量-->
+	<select id="selectCount" resultType="java.lang.Integer" >
+		 SELECT count(1) FROM `orders` <include refid="query_condition" />
+	</select>
+
+	<!-- 插入 （匹配有值的字段）-->
+	<insert id="insert" parameterType="common.entity.pojo.Orders">
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		 INSERT INTO `orders`
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="customerName != null">
+				 `customer_name`,
+			</if>
+			<if test="productName != null">
+				 `product_name`,
+			</if>
+			<if test="orderDate != null">
+				 `order_date`,
+			</if>
+			<if test="totalAmount != null">
+				 `total_amount`,
+			</if>
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="customerName!=null">
+				 #{customerName},
+			</if>
+			<if test="productName!=null">
+				 #{productName},
+			</if>
+			<if test="orderDate!=null">
+				 #{orderDate},
+			</if>
+			<if test="totalAmount!=null">
+				 #{totalAmount},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 插入 （根据表名称插入）-->
+	<insert id="insertWidthTableName" parameterType="common.entity.pojo.Orders">
+		<selectKey keyProperty="bean.id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		 INSERT INTO `${tableName}`(`customer_name`,`product_name`,`order_date`,`total_amount`)values(
+			 #{bean.customerName},#{bean.productName},#{bean.orderDate},#{bean.totalAmount})
+		ON DUPLICATE KEY UPDATE 
+		`customer_name` = values(`customer_name`),`product_name` = values(`product_name`),`order_date` = values(`order_date`),`total_amount` = values(`total_amount`)
+	</insert>
+
+	<!-- 添加 （批量插入或修改）-->
+		<insert id="insertBatch" parameterType="common.entity.pojo.Orders">
+		 INSERT INTO `orders`
+		 <trim prefix="(" suffix=")" suffixOverrides=",">
+			`id`,
+		 <if test="list[0].customer_name!= null">
+		 `customer_name`,
+		 </if>
+		 <if test="list[0].product_name!= null">
+		 `product_name`,
+		 </if>
+		 <if test="list[0].order_date!= null">
+		 `order_date`,
+		 </if>
+		 <if test="list[0].total_amount!= null">
+		 `total_amount`,
+		 </if>
+		</trim>
+		values
+			 <foreach collection="list" item="item" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			#{item.id},
+		 <if test="list[0].customer_name!= null">
+		 #{item.customerName},
+		 </if>
+		 <if test="list[0].product_name!= null">
+		 #{item.productName},
+		 </if>
+		 <if test="list[0].order_date!= null">
+		 #{item.orderDate},
+		 </if>
+		 <if test="list[0].total_amount!= null">
+		 #{item.totalAmount},
+		 </if>
+
+		</trim>
+		</foreach>
+		ON DUPLICATE KEY UPDATE 
+		
+		<trim suffixOverrides="," >
+		 <if test="list[0].customer_name!= null">
+		 `customer_name`= values(`customer_name`),
+		 </if>
+		 <if test="list[0].product_name!= null">
+		 `product_name`= values(`product_name`),
+		 </if>
+		 <if test="list[0].order_date!= null">
+		 `order_date`= values(`order_date`),
+		 </if>
+		 <if test="list[0].total_amount!= null">
+		 `total_amount`= values(`total_amount`),
+		 </if>
+
+		</trim>
+		</insert>
+
+	<!-- 根据PrimaryKey修 改-->
+	<update id="updateByPrimaryKey" parameterType="common.entity.pojo.Orders">
+		 UPDATE `orders`
+ 		 <set> 
+			<if test="bean.customerName != null">
+				 `customer_name` = #{bean.customerName},
+			</if>
+			<if test="bean.productName != null">
+				 `product_name` = #{bean.productName},
+			</if>
+			<if test="bean.orderDate != null">
+				 `order_date` = #{bean.orderDate},
+			</if>
+			<if test="bean.totalAmount != null">
+				 `total_amount` = #{bean.totalAmount},
+			</if>
+ 		 </set>
+ 		 where `id`=#{id}
+	</update>
+
+	<!-- 根据PrimaryKey删除-->
+	<delete id="deleteByPrimaryKey">
+		delete from `orders` where `id`=#{id}
+	</delete>
+
+	<!-- 根据PrimaryKey获取对象-->
+	<select id="selectByPrimaryKey" resultMap="base_result_map" >
+		select <include refid="base_column_list" /> from `orders` where `id`=#{id}
+	</select>
+
+</mapper>
