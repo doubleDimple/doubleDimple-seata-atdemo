@@ -11,6 +11,14 @@
     <artifactId>order-service-api</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.doubleDimple</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <packaging>jar</packaging>
     <name>order-service-api</name>
 
