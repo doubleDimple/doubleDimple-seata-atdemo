@@ -44,8 +44,9 @@ spring:
         url-pattern: "/druid/*"
         allow:
         deny:
-        reset-enable: false
+        reset-enable: false # 是否允许重置数据
         login-username: admin
         login-password: admin
+        enabled: true
 mybatis:
   mapper-locations: classpath*:/mapper/**/*.xml
