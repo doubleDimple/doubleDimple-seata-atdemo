@@ -10,3 +10,4 @@ spring:
         group: DEFAULT_GROUP
         namespace: ${spring.cloud.nacos.discovery.namespace}
         file-extension: yaml
+      server-addr: 192.168.31.143:8848
