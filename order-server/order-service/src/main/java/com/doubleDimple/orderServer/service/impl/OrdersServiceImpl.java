@@ -102,6 +102,10 @@ public class OrdersServiceImpl implements OrdersService {
 		return this.ordersMapper.selectByPrimaryKey(id);
 	}
 
+	/**
+	 * 这里需要使用分布式事务来控制,生成订单后,执行扣减库存服务
+	 * @param orders
+	 */
 	@Override
 	public void insertAndDeduction(Orders orders) {
 		this.ordersMapper.insert(orders);
