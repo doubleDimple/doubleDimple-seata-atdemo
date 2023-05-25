@@ -1,4 +1,4 @@
-package com.doubleDimple.orderServer;
+package com.doubleDimple.stockServer;
 
 import org.springframework.boot.SpringApplication;
 import org.mybatis.spring.annotation.MapperScan;
@@ -7,13 +7,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@MapperScan("com.doubleDimple.orderServer.mapper")
+@MapperScan("com.doubleDimple.stockServer.mapper")
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.doubleDimple.stockApi.service"})
-public class OrderServiceApplication {
+@EnableFeignClients
+public class StockServiceApplication {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class,args);
+        SpringApplication.run(StockServiceApplication.class,args);
     }
 }

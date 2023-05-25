@@ -6,13 +6,15 @@ import javax.annotation.Resource;
 
 import com.doubleDimple.orderServer.mapper.OrdersMapper;
 import com.doubleDimple.orderServer.service.OrdersService;
+import com.doubleDimple.stockApi.service.StockFeignApi;
 import common.entity.enums.PageSize;
 import common.entity.page.PaginationResult;
 import common.entity.page.SimplePage;
 import common.entity.pojo.Orders;
 import common.entity.query.OrdersQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import stock.entity.pojo.Inventory;
 
 
 /**
@@ -25,6 +27,9 @@ public class OrdersServiceImpl implements OrdersService {
 
 	@Resource
 	private OrdersMapper<Orders, OrdersQuery> ordersMapper;
+
+	@Resource
+	private StockFeignApi stockFeignApi;
 
 	/**
 	 * 根据条件查询列表
@@ -95,6 +100,17 @@ public class OrdersServiceImpl implements OrdersService {
 	 */
 	public Orders getOrdersByPrimaryKey(Integer id){
 		return this.ordersMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void insertAndDeduction(Orders orders) {
+		this.ordersMapper.insert(orders);
+		//扣减库存
+		Inventory inventory = new Inventory();
+		inventory.setId(1);
+		inventory.setStockQuantity(9);
+		stockFeignApi.update(inventory);
+
 	}
 
 }

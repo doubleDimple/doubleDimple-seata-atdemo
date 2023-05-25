@@ -1,0 +1,12 @@
+#https://blog.csdn.net/Yu_luoluo/article/details/122061461
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.31.143:8848
+        #namespace: order-server-at
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        group: DEFAULT_GROUP
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        file-extension: yaml
