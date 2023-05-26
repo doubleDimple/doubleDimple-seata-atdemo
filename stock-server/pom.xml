@@ -87,16 +87,11 @@
                 <version>${springcloud.version}</version>
             </dependency>
 
-            <!--<dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-spring-boot-starter</artifactId>
-                <version>1.6.1</version>
-            </dependency>-->
+            <!-- seata依赖-->
             <dependency>
                     <groupId>com.alibaba.cloud</groupId>
                     <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                    <version>2021.1</version>
-                    <!-- 根据spring-cloud-alibaba版本自定导入对应版本的seata依赖 -->
+                    <version>2.2.7.RELEASE</version>
                 <exclusions>
                     <exclusion>
                         <groupId>io.seata</groupId>
@@ -122,23 +117,6 @@
             </plugin>
         </plugins>
     </build>-->
-
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo1.maven.org/maven2</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>aliyun</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
 
 
 </project>

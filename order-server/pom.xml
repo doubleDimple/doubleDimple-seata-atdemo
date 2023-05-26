@@ -95,7 +95,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                <version>2021.1</version>
+                <version>2.2.7.RELEASE</version>
                 <!-- 根据spring-cloud-alibaba版本自定导入对应版本的seata依赖 -->
                 <exclusions>
                     <exclusion>
