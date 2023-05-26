@@ -86,6 +86,12 @@
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
                 <version>${springcloud.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>1.6.1</version>
+            </dependency>
         </dependencies>
 
     <!--<build>

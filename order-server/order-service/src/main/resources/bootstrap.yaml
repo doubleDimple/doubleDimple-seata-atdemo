@@ -4,10 +4,15 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.31.143:8848
-        #namespace: order-server-at
+        namespace: dev
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         group: DEFAULT_GROUP
         namespace: ${spring.cloud.nacos.discovery.namespace}
         file-extension: yaml
       server-addr: 192.168.31.143:8848
+seata:
+  txServiceGroup: mygroup # 事务分组名称，要和服务端对应
+  service:
+    vgroupMapping:
+      mygroup: default # key是事务分组名称 value要和服务端的机房名称保持一致

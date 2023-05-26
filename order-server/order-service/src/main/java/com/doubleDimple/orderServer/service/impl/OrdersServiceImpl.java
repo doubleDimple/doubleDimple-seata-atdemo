@@ -12,8 +12,9 @@ import common.entity.page.PaginationResult;
 import common.entity.page.SimplePage;
 import common.entity.pojo.Orders;
 import common.entity.query.OrdersQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import stock.entity.pojo.Inventory;
 
 
@@ -107,14 +108,20 @@ public class OrdersServiceImpl implements OrdersService {
 	 * @param orders
 	 */
 	@Override
+	@GlobalTransactional
+	@Transactional(rollbackFor = Exception.class)
 	public void insertAndDeduction(Orders orders) {
-		this.ordersMapper.insert(orders);
-		//扣减库存
-		Inventory inventory = new Inventory();
-		inventory.setId(1);
-		inventory.setStockQuantity(9);
-		stockFeignApi.update(inventory);
-
+		try {
+			this.ordersMapper.insert(orders);
+			//扣减库存
+			Inventory inventory = new Inventory();
+			inventory.setId(1);
+			inventory.setStockQuantity(9);
+			stockFeignApi.update(inventory);
+			int i= 1/0;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

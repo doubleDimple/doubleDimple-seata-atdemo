@@ -50,3 +50,6 @@ spring:
         enabled: true
 mybatis:
   mapper-locations: classpath*:/mapper/**/*.xml
+feign:
+  hystrix:
+    enabled: true

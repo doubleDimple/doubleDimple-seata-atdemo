@@ -49,7 +49,7 @@ public class InventoryController{
 	 */
 	@RequestMapping("/update")
 	public ResponseEntity update(@RequestBody Inventory inventory){
-		this.inventoryService.updateByPrimaryKey(inventory,inventory.getId());
+		this.inventoryService.updateAtTest(inventory,inventory.getId());
 		return ResponseEntity.ok().build();
 	}
 }
