@@ -54,3 +54,5 @@ mybatis:
 feign:
   hystrix:
     enabled: true
+  seata:
+    enabled: true

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import stock.entity.pojo.Inventory;
 
-@FeignClient(name = "stock-server")
+/*@FeignClient(name = "stock-server")
 public interface StockApi {
 
 
@@ -15,4 +15,4 @@ public interface StockApi {
 
     @PostMapping("/stock-server/inventory/add")
     void add(@RequestBody Inventory inventory);
-}
+}*/

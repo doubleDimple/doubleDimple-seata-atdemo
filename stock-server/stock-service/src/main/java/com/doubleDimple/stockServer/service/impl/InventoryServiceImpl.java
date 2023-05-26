@@ -6,7 +6,9 @@ import javax.annotation.Resource;
 
 import com.doubleDimple.stockServer.mapper.InventoryMapper;
 import com.doubleDimple.stockServer.service.InventoryService;
+import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import stock.entity.query.InventoryQuery;
  * 
  */
 @Service("inventoryService")
+@Slf4j
 public class InventoryServiceImpl implements InventoryService {
 
 	@Resource
@@ -100,9 +103,9 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	@Transactional
 	public void updateAtTest(Inventory inventory, Integer id) throws Exception{
-
+		String xid = RootContext.getXID();
+		log.info("xid:[{}]",xid);
 		this.inventoryMapper.updateByPrimaryKey(inventory,id);
 	}
 

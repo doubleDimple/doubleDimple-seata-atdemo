@@ -1,0 +1,4 @@
+springboot集成seata参考https://blog.csdn.net/weixin_40777510/article/details/129685726
+在执行的过程中,发现分支事务会有失败的问题
+主要原因是因为,feign调用的情况下,全局的xid没有传递导致,所以需要引入
+spring-cloud-starter-alibaba-seata依赖用于传递xid,而且只要在调用方加一个GlobalTransactional注解即可
