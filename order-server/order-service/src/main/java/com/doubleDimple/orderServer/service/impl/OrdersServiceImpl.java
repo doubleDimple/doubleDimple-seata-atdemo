@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.doubleDimple.orderServer.feign.StockApi;
 import com.doubleDimple.orderServer.mapper.OrdersMapper;
 import com.doubleDimple.orderServer.service.OrdersService;
 import com.doubleDimple.stockApi.service.StockFeignApi;
@@ -13,7 +14,9 @@ import common.entity.page.SimplePage;
 import common.entity.pojo.Orders;
 import common.entity.query.OrdersQuery;
 import io.seata.spring.annotation.GlobalTransactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import stock.entity.pojo.Inventory;
 
@@ -29,8 +32,8 @@ public class OrdersServiceImpl implements OrdersService {
 	@Resource
 	private OrdersMapper<Orders, OrdersQuery> ordersMapper;
 
-	@Resource
-	private StockFeignApi stockFeignApi;
+	@Autowired
+	private StockApi stockApi;
 
 	/**
 	 * 根据条件查询列表
@@ -109,18 +112,17 @@ public class OrdersServiceImpl implements OrdersService {
 	 */
 	@Override
 	@GlobalTransactional
-	@Transactional(rollbackFor = Exception.class)
-	public void insertAndDeduction(Orders orders) {
+	public void insertAndDeduction(Orders orders) throws Exception{
 		try {
 			this.ordersMapper.insert(orders);
 			//扣减库存
 			Inventory inventory = new Inventory();
 			inventory.setId(1);
 			inventory.setStockQuantity(9);
-			stockFeignApi.update(inventory);
+			stockApi.update(inventory);
 			int i= 1/0;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new Exception(e);
 		}
 	}
 

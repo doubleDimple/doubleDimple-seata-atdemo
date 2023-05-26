@@ -100,14 +100,10 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void updateAtTest(Inventory inventory, Integer id) {
-		try {
-			this.inventoryMapper.updateByPrimaryKey(inventory,id);
-			//int i = 1/0;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	@Transactional
+	public void updateAtTest(Inventory inventory, Integer id) throws Exception{
+
+		this.inventoryMapper.updateByPrimaryKey(inventory,id);
 	}
 
 }

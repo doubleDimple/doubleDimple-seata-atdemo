@@ -49,7 +49,11 @@ public class InventoryController{
 	 */
 	@RequestMapping("/update")
 	public ResponseEntity update(@RequestBody Inventory inventory){
-		this.inventoryService.updateAtTest(inventory,inventory.getId());
+		try {
+			this.inventoryService.updateAtTest(inventory,inventory.getId());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		return ResponseEntity.ok().build();
 	}
 }

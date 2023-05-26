@@ -53,7 +53,11 @@ public class OrdersController{
 	@RequestMapping("/insertAndDeduction")
 	public ResponseEntity insertAndDeduction(@RequestBody Orders orders) {
 
-		ordersService.insertAndDeduction(orders);
+		try {
+			ordersService.insertAndDeduction(orders);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		return ResponseEntity.ok().build();
 	}
 

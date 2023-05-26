@@ -56,5 +56,5 @@ public interface OrdersService {
 	 */
 	 public Orders getOrdersByPrimaryKey(Integer id);
 
-	void insertAndDeduction(Orders orders);
+	void insertAndDeduction(Orders orders) throws Exception;
 }

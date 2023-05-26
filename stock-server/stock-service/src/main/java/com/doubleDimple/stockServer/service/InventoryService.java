@@ -57,5 +57,5 @@ public interface InventoryService {
 	 */
 	 public Inventory getInventoryByPrimaryKey(Integer id);
 
-	void updateAtTest(Inventory inventory, Integer id);
+	void updateAtTest(Inventory inventory, Integer id) throws Exception;
 }
