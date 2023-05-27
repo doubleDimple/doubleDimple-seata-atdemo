@@ -6,6 +6,8 @@ spring:
     active: dev
   cloud:
     nacos:
+      username: nacos
+      password: 123456
       discovery:
         server-addr: 192.168.31.143:8848
         namespace: ${spring.profiles.active}

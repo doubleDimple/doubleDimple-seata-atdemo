@@ -124,7 +124,7 @@ public class OrdersServiceImpl implements OrdersService {
 			inventory.setId(1);
 			inventory.setStockQuantity(9);
 			stockFeignApi.update(inventory);
-			int i= 1/0;
+			//int i= 1/0;
 		} catch (Exception e) {
 			throw new Exception(e);
 		}

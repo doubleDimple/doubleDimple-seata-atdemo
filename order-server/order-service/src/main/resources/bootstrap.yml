@@ -6,6 +6,8 @@ spring:
     active: dev
   cloud:
     nacos:
+      username: nacos
+      password: 123456
       discovery:
         server-addr: 192.168.31.143:8848
         namespace: ${spring.profiles.active}
@@ -15,6 +17,7 @@ spring:
         namespace: ${spring.cloud.nacos.discovery.namespace}
         file-extension: yaml
       server-addr: 192.168.31.143:8848
+
 seata:
   txServiceGroup: mygroup # 事务分组名称，要和服务端对应
   service:
