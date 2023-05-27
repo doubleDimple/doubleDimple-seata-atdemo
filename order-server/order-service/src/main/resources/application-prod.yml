@@ -1,0 +1,15 @@
+server:
+  port: 7896
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/seata-at-test1
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+service:
+  test:
+   name: 我是开发环境生产
+   url: lovele.cn

@@ -3,6 +3,7 @@ package com.doubleDimple.orderServer.controller;
 import javax.annotation.Resource;
 
 import com.doubleDimple.orderServer.service.OrdersService;
+import com.doubleDimple.orderServer.testConfig.MyService;
 import common.entity.page.PaginationResult;
 import common.entity.pojo.Orders;
 import common.entity.query.OrdersQuery;
@@ -24,6 +25,10 @@ public class OrdersController{
 
 	@Resource
 	private OrdersService ordersService;
+
+
+	@Resource
+	private MyService myService;
 
 	/**
 	 * 分页查询方法
@@ -58,6 +63,14 @@ public class OrdersController{
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		return ResponseEntity.ok().build();
+	}
+
+
+	@RequestMapping("/getMessage")
+	public ResponseEntity getmessage() {
+
+		myService.doSomething();
 		return ResponseEntity.ok().build();
 	}
 

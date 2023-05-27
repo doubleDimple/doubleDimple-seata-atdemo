@@ -1,18 +1,21 @@
 #https://blog.csdn.net/Yu_luoluo/article/details/122061461
 spring:
+  application:
+    name: stock-server
+  profiles:
+    active: dev
   cloud:
     nacos:
       discovery:
         server-addr: 192.168.31.143:8848
-        namespace: dev
+        namespace: ${spring.profiles.active}
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         group: DEFAULT_GROUP
         namespace: ${spring.cloud.nacos.discovery.namespace}
         file-extension: yaml
-      server-addr: 192.168.31.143:8848
 seata:
-  txServiceGroup: mygroup # 事务分组名称，要和服务端对应
+  txServiceGroup: mygroup
   service:
     vgroupMapping:
       mygroup: default # key是事务分组名称 value要和服务端的机房名称保持一致
