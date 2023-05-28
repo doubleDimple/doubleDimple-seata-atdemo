@@ -1,13 +1,8 @@
 server:
-  port: 7897
   servlet:
     context-path: /stock-server
 
 spring:
-  application:
-    name: stock-server
-  profiles:
-    active: dev
   datasource:
     url: jdbc:mysql://localhost:3306/seata-at-test2
     username: root
