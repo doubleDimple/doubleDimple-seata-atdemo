@@ -1,0 +1,10 @@
+server:
+  port: 6699
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/seata-at-test3
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource

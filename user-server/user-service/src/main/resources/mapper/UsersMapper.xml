@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doubleDimple.userServer.mapper.UsersMapper">
+
+	<!--实体映射-->
+	<resultMap id="base_result_map" type="users.entity.pojo.Users">
+		<!---->
+		<id column="user_id" property="userId"  />
+		<!--用户名-->
+		<result column="username" property="username"  />
+		<!--姓名-->
+		<result column="full_name" property="fullName"  />
+		<!--电子邮件-->
+		<result column="email" property="email"  />
+		<!--手机号码-->
+		<result column="phone_number" property="phoneNumber"  />
+		<!--密码哈希-->
+		<result column="password_hash" property="passwordHash"  />
+		<!--地址-->
+		<result column="address" property="address"  />
+		<!--注册日期-->
+		<result column="registration_date" property="registrationDate"  />
+		<!--最后登录日期-->
+		<result column="last_login_date" property="lastLoginDate"  />
+		<!--账户状态-->
+		<result column="account_status" property="accountStatus"  />
+		<!--用户类型-->
+		<result column="user_type" property="userType"  />
+		<!--创建时间-->
+		<result column="created_at" property="createdAt"  />
+		<!--修改时间-->
+		<result column="updated_at" property="updatedAt"  />
+	</resultMap>
+
+
+	<!-- 通用查询结果列-->
+	<sql id="base_column_list">
+		 `user_id`,`username`,`full_name`,`email`,`phone_number`,`password_hash`,`address`,`registration_date`,`last_login_date`,`account_status`,`user_type`,`created_at`,`updated_at`
+	</sql>
+
+	<sql id="base_condition_filed">
+			<if test="userId != null">
+				 and  `user_id` = #{userId}
+			</if>
+			<if test="username != null and username !=''">
+				 and  `username` = #{username}
+			</if>
+			<if test="fullName != null and fullName !=''">
+				 and  `full_name` = #{fullName}
+			</if>
+			<if test="email != null and email !=''">
+				 and  `email` = #{email}
+			</if>
+			<if test="phoneNumber != null and phoneNumber !=''">
+				 and  `phone_number` = #{phoneNumber}
+			</if>
+			<if test="passwordHash != null and passwordHash !=''">
+				 and  `password_hash` = #{passwordHash}
+			</if>
+			<if test="address != null and address !=''">
+				 and  `address` = #{address}
+			</if>
+			<if test="registrationDate != null">
+				 and  `registration_date` = #{registrationDate}
+			</if>
+			<if test="lastLoginDate != null">
+				 and  `last_login_date` = #{lastLoginDate}
+			</if>
+			<if test="accountStatus != null and accountStatus !=''">
+				 and  `account_status` = #{accountStatus}
+			</if>
+			<if test="userType != null and userType !=''">
+				 and  `user_type` = #{userType}
+			</if>
+			<if test="createdAt != null">
+				 and  `created_at` = #{createdAt}
+			</if>
+			<if test="updatedAt != null">
+				 and  `updated_at` = #{updatedAt}
+			</if>
+	</sql>
+	<!-- 通用条件列-->
+	<sql id="base_condition">
+	 <where> <include refid="base_condition_filed" />	 </where>
+	</sql>
+
+	<!-- 通用查询条件列-->
+	<sql id="query_condition">
+	 <where>
+			<include refid="base_condition_filed" />
+			<if test="usernameFuzzy != null  and usernameFuzzy != ''">
+				 and  `username` like concat('%', #{usernameFuzzy}, '%')
+			</if>
+			<if test="fullNameFuzzy != null  and fullNameFuzzy != ''">
+				 and  `full_name` like concat('%', #{fullNameFuzzy}, '%')
+			</if>
+			<if test="emailFuzzy != null  and emailFuzzy != ''">
+				 and  `email` like concat('%', #{emailFuzzy}, '%')
+			</if>
+			<if test="phoneNumberFuzzy != null  and phoneNumberFuzzy != ''">
+				 and  `phone_number` like concat('%', #{phoneNumberFuzzy}, '%')
+			</if>
+			<if test="passwordHashFuzzy != null  and passwordHashFuzzy != ''">
+				 and  `password_hash` like concat('%', #{passwordHashFuzzy}, '%')
+			</if>
+			<if test="addressFuzzy != null  and addressFuzzy != ''">
+				 and  `address` like concat('%', #{addressFuzzy}, '%')
+			</if>
+			<if test="registrationDateStart != null and registrationDateStart !='' ">
+				 <![CDATA[ and  `registration_date`>=str_to_date('${registrationDateStart}', '%Y-%m-%d') ]]>
+			</if>
+			<if test="registrationDateEnd!= null and registrationDateEnd!=''">
+				 <![CDATA[ and  `registration_date`< date_sub(str_to_date('${registrationDateEnd}','%Y-%m-%d'),interval -1 day) ]]>
+			</if>
+			<if test="lastLoginDateStart != null and lastLoginDateStart !='' ">
+				 <![CDATA[ and  `last_login_date`>=str_to_date('${lastLoginDateStart}', '%Y-%m-%d') ]]>
+			</if>
+			<if test="lastLoginDateEnd!= null and lastLoginDateEnd!=''">
+				 <![CDATA[ and  `last_login_date`< date_sub(str_to_date('${lastLoginDateEnd}','%Y-%m-%d'),interval -1 day) ]]>
+			</if>
+			<if test="accountStatusFuzzy != null  and accountStatusFuzzy != ''">
+				 and  `account_status` like concat('%', #{accountStatusFuzzy}, '%')
+			</if>
+			<if test="userTypeFuzzy != null  and userTypeFuzzy != ''">
+				 and  `user_type` like concat('%', #{userTypeFuzzy}, '%')
+			</if>
+			<if test="createdAtStart != null and createdAtStart !='' ">
+				 <![CDATA[ and  `created_at`>=str_to_date('${createdAtStart}', '%Y-%m-%d') ]]>
+			</if>
+			<if test="createdAtEnd!= null and createdAtEnd!=''">
+				 <![CDATA[ and  `created_at`< date_sub(str_to_date('${createdAtEnd}','%Y-%m-%d'),interval -1 day) ]]>
+			</if>
+			<if test="updatedAtStart != null and updatedAtStart !='' ">
+				 <![CDATA[ and  `updated_at`>=str_to_date('${updatedAtStart}', '%Y-%m-%d') ]]>
+			</if>
+			<if test="updatedAtEnd!= null and updatedAtEnd!=''">
+				 <![CDATA[ and  `updated_at`< date_sub(str_to_date('${updatedAtEnd}','%Y-%m-%d'),interval -1 day) ]]>
+			</if>
+	 </where>
+	</sql>
+
+	<!-- 查询集合-->
+	<select id="selectList" resultMap="base_result_map" >
+		 SELECT <include refid="base_column_list" /> FROM `users` <include refid="query_condition" />
+		 <if test="orderBy!=null">
+			 order by ${orderBy}
+		 </if>
+		 <if test="page!=null">
+			 limit #{page.start},#{page.end}
+		 </if>
+	</select>
+
+	<!-- 查询数量-->
+	<select id="selectCount" resultType="java.lang.Integer" >
+		 SELECT count(1) FROM `users` <include refid="query_condition" />
+	</select>
+
+	<!-- 插入 （匹配有值的字段）-->
+	<insert id="insert" parameterType="users.entity.pojo.Users">
+		<selectKey keyProperty="userId" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		 INSERT INTO `users`
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="username != null">
+				 `username`,
+			</if>
+			<if test="fullName != null">
+				 `full_name`,
+			</if>
+			<if test="email != null">
+				 `email`,
+			</if>
+			<if test="phoneNumber != null">
+				 `phone_number`,
+			</if>
+			<if test="passwordHash != null">
+				 `password_hash`,
+			</if>
+			<if test="address != null">
+				 `address`,
+			</if>
+			<if test="registrationDate != null">
+				 `registration_date`,
+			</if>
+			<if test="lastLoginDate != null">
+				 `last_login_date`,
+			</if>
+			<if test="accountStatus != null">
+				 `account_status`,
+			</if>
+			<if test="userType != null">
+				 `user_type`,
+			</if>
+			<if test="createdAt != null">
+				 `created_at`,
+			</if>
+			<if test="updatedAt != null">
+				 `updated_at`,
+			</if>
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="username!=null">
+				 #{username},
+			</if>
+			<if test="fullName!=null">
+				 #{fullName},
+			</if>
+			<if test="email!=null">
+				 #{email},
+			</if>
+			<if test="phoneNumber!=null">
+				 #{phoneNumber},
+			</if>
+			<if test="passwordHash!=null">
+				 #{passwordHash},
+			</if>
+			<if test="address!=null">
+				 #{address},
+			</if>
+			<if test="registrationDate!=null">
+				 #{registrationDate},
+			</if>
+			<if test="lastLoginDate!=null">
+				 #{lastLoginDate},
+			</if>
+			<if test="accountStatus!=null">
+				 #{accountStatus},
+			</if>
+			<if test="userType!=null">
+				 #{userType},
+			</if>
+			<if test="createdAt!=null">
+				 #{createdAt},
+			</if>
+			<if test="updatedAt!=null">
+				 #{updatedAt},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 插入 （根据表名称插入）-->
+	<insert id="insertWidthTableName" parameterType="users.entity.pojo.Users">
+		<selectKey keyProperty="bean.userId" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		 INSERT INTO `${tableName}`(`username`,`full_name`,`email`,`phone_number`,`password_hash`,`address`,`registration_date`,`last_login_date`,`account_status`,`user_type`,`created_at`,`updated_at`)values(
+			 #{bean.username},#{bean.fullName},#{bean.email},#{bean.phoneNumber},#{bean.passwordHash},#{bean.address},#{bean.registrationDate},#{bean.lastLoginDate},#{bean.accountStatus},#{bean.userType},#{bean.createdAt},#{bean.updatedAt})
+		ON DUPLICATE KEY UPDATE 
+		`username` = values(`username`),`full_name` = values(`full_name`),`email` = values(`email`),`password_hash` = values(`password_hash`),`address` = values(`address`),`registration_date` = values(`registration_date`),`last_login_date` = values(`last_login_date`),`account_status` = values(`account_status`),`user_type` = values(`user_type`),`created_at` = values(`created_at`),`updated_at` = values(`updated_at`)
+	</insert>
+
+	<!-- 添加 （批量插入或修改）-->
+		<insert id="insertBatch" parameterType="users.entity.pojo.Users">
+		 INSERT INTO `users`
+		 <trim prefix="(" suffix=")" suffixOverrides=",">
+			`id`,
+		 <if test="list[0].username!= null">
+		 `username`,
+		 </if>
+		 <if test="list[0].full_name!= null">
+		 `full_name`,
+		 </if>
+		 <if test="list[0].email!= null">
+		 `email`,
+		 </if>
+		 <if test="list[0].phone_number!= null">
+		 `phone_number`,
+		 </if>
+		 <if test="list[0].password_hash!= null">
+		 `password_hash`,
+		 </if>
+		 <if test="list[0].address!= null">
+		 `address`,
+		 </if>
+		 <if test="list[0].registration_date!= null">
+		 `registration_date`,
+		 </if>
+		 <if test="list[0].last_login_date!= null">
+		 `last_login_date`,
+		 </if>
+		 <if test="list[0].account_status!= null">
+		 `account_status`,
+		 </if>
+		 <if test="list[0].user_type!= null">
+		 `user_type`,
+		 </if>
+		 <if test="list[0].created_at!= null">
+		 `created_at`,
+		 </if>
+		 <if test="list[0].updated_at!= null">
+		 `updated_at`,
+		 </if>
+		</trim>
+		values
+			 <foreach collection="list" item="item" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			#{item.id},
+		 <if test="list[0].username!= null">
+		 #{item.username},
+		 </if>
+		 <if test="list[0].full_name!= null">
+		 #{item.fullName},
+		 </if>
+		 <if test="list[0].email!= null">
+		 #{item.email},
+		 </if>
+		 <if test="list[0].phone_number!= null">
+		 #{item.phoneNumber},
+		 </if>
+		 <if test="list[0].password_hash!= null">
+		 #{item.passwordHash},
+		 </if>
+		 <if test="list[0].address!= null">
+		 #{item.address},
+		 </if>
+		 <if test="list[0].registration_date!= null">
+		 #{item.registrationDate},
+		 </if>
+		 <if test="list[0].last_login_date!= null">
+		 #{item.lastLoginDate},
+		 </if>
+		 <if test="list[0].account_status!= null">
+		 #{item.accountStatus},
+		 </if>
+		 <if test="list[0].user_type!= null">
+		 #{item.userType},
+		 </if>
+		 <if test="list[0].created_at!= null">
+		 #{item.createdAt},
+		 </if>
+		 <if test="list[0].updated_at!= null">
+		 #{item.updatedAt},
+		 </if>
+
+		</trim>
+		</foreach>
+		ON DUPLICATE KEY UPDATE 
+		
+		<trim suffixOverrides="," >
+		 <if test="list[0].username!= null">
+		 `username`= values(`username`),
+		 </if>
+		 <if test="list[0].full_name!= null">
+		 `full_name`= values(`full_name`),
+		 </if>
+		 <if test="list[0].email!= null">
+		 `email`= values(`email`),
+		 </if>
+		 <if test="list[0].password_hash!= null">
+		 `password_hash`= values(`password_hash`),
+		 </if>
+		 <if test="list[0].address!= null">
+		 `address`= values(`address`),
+		 </if>
+		 <if test="list[0].registration_date!= null">
+		 `registration_date`= values(`registration_date`),
+		 </if>
+		 <if test="list[0].last_login_date!= null">
+		 `last_login_date`= values(`last_login_date`),
+		 </if>
+		 <if test="list[0].account_status!= null">
+		 `account_status`= values(`account_status`),
+		 </if>
+		 <if test="list[0].user_type!= null">
+		 `user_type`= values(`user_type`),
+		 </if>
+		 <if test="list[0].created_at!= null">
+		 `created_at`= values(`created_at`),
+		 </if>
+		 <if test="list[0].updated_at!= null">
+		 `updated_at`= values(`updated_at`),
+		 </if>
+
+		</trim>
+		</insert>
+
+	<!-- 根据PrimaryKey修 改-->
+	<update id="updateByPrimaryKey" parameterType="users.entity.pojo.Users">
+		 UPDATE `users`
+ 		 <set> 
+			<if test="bean.username != null">
+				 `username` = #{bean.username},
+			</if>
+			<if test="bean.fullName != null">
+				 `full_name` = #{bean.fullName},
+			</if>
+			<if test="bean.email != null">
+				 `email` = #{bean.email},
+			</if>
+			<if test="bean.phoneNumber != null">
+				 `phone_number` = #{bean.phoneNumber},
+			</if>
+			<if test="bean.passwordHash != null">
+				 `password_hash` = #{bean.passwordHash},
+			</if>
+			<if test="bean.address != null">
+				 `address` = #{bean.address},
+			</if>
+			<if test="bean.registrationDate != null">
+				 `registration_date` = #{bean.registrationDate},
+			</if>
+			<if test="bean.lastLoginDate != null">
+				 `last_login_date` = #{bean.lastLoginDate},
+			</if>
+			<if test="bean.accountStatus != null">
+				 `account_status` = #{bean.accountStatus},
+			</if>
+			<if test="bean.userType != null">
+				 `user_type` = #{bean.userType},
+			</if>
+			<if test="bean.createdAt != null">
+				 `created_at` = #{bean.createdAt},
+			</if>
+			<if test="bean.updatedAt != null">
+				 `updated_at` = #{bean.updatedAt},
+			</if>
+ 		 </set>
+ 		 where `user_id`=#{userId}
+	</update>
+
+	<!-- 根据PrimaryKey删除-->
+	<delete id="deleteByPrimaryKey">
+		delete from `users` where `user_id`=#{userId}
+	</delete>
+
+	<!-- 根据PrimaryKey获取对象-->
+	<select id="selectByPrimaryKey" resultMap="base_result_map" >
+		select <include refid="base_column_list" /> from `users` where `user_id`=#{userId}
+	</select>
+
+</mapper>

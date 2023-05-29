@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-parent/2.3.12.RELEASE/src/main/resources" charset="UTF-8" />
     <file url="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-parent/2.3.2.RELEASE/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-server/common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order-server/order-service-api/src/main/java" charset="UTF-8" />
@@ -12,5 +13,10 @@
     <file url="file://$PROJECT_DIR$/stock-server/stock-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/stock-server/stock-service-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/stock-server/stock-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-server/user-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-server/user-service-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-server/user-service/src/main/java" charset="UTF-8" />
   </component>
 </project>
