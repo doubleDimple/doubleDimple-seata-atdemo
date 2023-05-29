@@ -1,21 +1,17 @@
 package com.doubleDimple.userServer.interceptor;
 
 import com.doubleDimple.userServer.annotation.PassToken;
-import com.doubleDimple.userServer.config.ApplicationContextProvider;
 import com.doubleDimple.userServer.config.JwtUtils;
 import com.doubleDimple.userServer.mapper.UsersMapper;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import users.entity.pojo.Users;
-import users.entity.query.UsersQuery;
-import users.exception.MyException;
-import users.response.enums.ResponseEnum;
-import users.utils.UserContext;
+import com.doubleDimple.users.entity.pojo.Users;
+import com.doubleDimple.users.entity.query.UsersQuery;
+import com.doubleDimple.users.exception.MyException;
+import com.doubleDimple.users.response.enums.ResponseEnum;
+import com.doubleDimple.users.utils.UserContext;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

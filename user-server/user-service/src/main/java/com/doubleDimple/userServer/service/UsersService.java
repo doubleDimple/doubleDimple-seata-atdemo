@@ -1,11 +1,10 @@
 package com.doubleDimple.userServer.service;
 
-import org.springframework.http.ResponseEntity;
-import users.entity.page.PaginationResult;
-import users.entity.pojo.Users;
-import users.entity.query.UsersQuery;
-import users.request.UserRequest;
-import users.utils.Result;
+import com.doubleDimple.users.entity.page.PaginationResult;
+import com.doubleDimple.users.entity.pojo.Users;
+import com.doubleDimple.users.entity.query.UsersQuery;
+import com.doubleDimple.users.request.UserRequest;
+import com.doubleDimple.users.utils.Result;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;

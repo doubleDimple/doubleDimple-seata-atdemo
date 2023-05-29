@@ -2,10 +2,8 @@ package com.doubleDimple.userServer.config;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import users.exception.MyException;
-import users.utils.Result;
-
-import static javafx.scene.input.KeyCode.R;
+import com.doubleDimple.users.exception.MyException;
+import com.doubleDimple.users.utils.Result;
 
 @RestControllerAdvice
 public class GlobalExceptionConfig{

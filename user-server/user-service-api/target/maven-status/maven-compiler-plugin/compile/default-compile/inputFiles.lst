@@ -1,1 +1,3 @@
-/Users/admin/IdeaProjects/myself/doubleDimple-seata-atdemo/stock-server/stock-service-api/src/main/java/com/doubleDimple/stockApi/service/StockFeignApi.java
+/Users/admin/IdeaProjects/myself/doubleDimple-seata-atdemo/user-server/user-service-api/src/main/java/com/doubleDimple/userApi/config/FeignConfig.java
+/Users/admin/IdeaProjects/myself/doubleDimple-seata-atdemo/user-server/user-service-api/src/main/java/com/doubleDimple/userApi/service/UserFeignApi.java
+/Users/admin/IdeaProjects/myself/doubleDimple-seata-atdemo/user-server/user-service-api/src/main/java/com/doubleDimple/userApi/hystrix/StockFeignHystrix.java

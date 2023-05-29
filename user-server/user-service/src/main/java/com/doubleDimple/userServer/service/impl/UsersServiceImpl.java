@@ -9,20 +9,18 @@ import com.doubleDimple.userServer.config.JwtUtils;
 import com.doubleDimple.userServer.mapper.UsersMapper;
 import com.doubleDimple.userServer.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import users.entity.enums.PageSize;
-import users.entity.page.PaginationResult;
-import users.entity.page.SimplePage;
-import users.entity.pojo.Users;
-import users.entity.query.UsersQuery;
-import users.request.UserRequest;
-import users.response.enums.ResponseEnum;
-import users.utils.PasswordUtil;
-import users.utils.Result;
-import users.utils.UserContext;
+import com.doubleDimple.users.entity.enums.PageSize;
+import com.doubleDimple.users.entity.page.PaginationResult;
+import com.doubleDimple.users.entity.page.SimplePage;
+import com.doubleDimple.users.entity.pojo.Users;
+import com.doubleDimple.users.entity.query.UsersQuery;
+import com.doubleDimple.users.request.UserRequest;
+import com.doubleDimple.users.response.enums.ResponseEnum;
+import com.doubleDimple.users.utils.PasswordUtil;
+import com.doubleDimple.users.utils.Result;
+import com.doubleDimple.users.utils.UserContext;
 
 
 /**

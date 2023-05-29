@@ -4,7 +4,7 @@
 <mapper namespace="com.doubleDimple.userServer.mapper.UsersMapper">
 
 	<!--实体映射-->
-	<resultMap id="base_result_map" type="users.entity.pojo.Users">
+	<resultMap id="base_result_map" type="com.doubleDimple.users.entity.pojo.Users">
 		<!---->
 		<id column="user_id" property="userId"  />
 		<!--用户名-->
@@ -157,7 +157,7 @@
 	</select>
 
 	<!-- 插入 （匹配有值的字段）-->
-	<insert id="insert" parameterType="users.entity.pojo.Users">
+	<insert id="insert" parameterType="com.doubleDimple.users.entity.pojo.Users">
 		<selectKey keyProperty="userId" resultType="Integer" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -241,7 +241,7 @@
 	</insert>
 
 	<!-- 插入 （根据表名称插入）-->
-	<insert id="insertWidthTableName" parameterType="users.entity.pojo.Users">
+	<insert id="insertWidthTableName" parameterType="com.doubleDimple.users.entity.pojo.Users">
 		<selectKey keyProperty="bean.userId" resultType="Integer" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -252,7 +252,7 @@
 	</insert>
 
 	<!-- 添加 （批量插入或修改）-->
-		<insert id="insertBatch" parameterType="users.entity.pojo.Users">
+		<insert id="insertBatch" parameterType="com.doubleDimple.users.entity.pojo.Users">
 		 INSERT INTO `users`
 		 <trim prefix="(" suffix=")" suffixOverrides=",">
 			`id`,
@@ -377,7 +377,7 @@
 		</insert>
 
 	<!-- 根据PrimaryKey修 改-->
-	<update id="updateByPrimaryKey" parameterType="users.entity.pojo.Users">
+	<update id="updateByPrimaryKey" parameterType="com.doubleDimple.users.entity.pojo.Users">
 		 UPDATE `users`
  		 <set> 
 			<if test="bean.username != null">

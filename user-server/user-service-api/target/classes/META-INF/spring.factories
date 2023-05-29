@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.doubleDimple.stockApi.hystrix.StockFeignHystrix
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.doubleDimple.userApi.hystrix.StockFeignHystrix
