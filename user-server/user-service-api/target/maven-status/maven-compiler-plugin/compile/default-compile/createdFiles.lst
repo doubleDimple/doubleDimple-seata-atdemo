@@ -1,3 +1,0 @@
-com/doubleDimple/userApi/config/FeignConfig.class
-com/doubleDimple/userApi/service/UserFeignApi.class
-com/doubleDimple/userApi/hystrix/StockFeignHystrix.class
