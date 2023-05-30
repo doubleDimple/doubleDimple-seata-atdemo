@@ -1,0 +1,19 @@
+#spring.security.user.password=abcd@1234
+spring:
+  application:
+    name: admin-server
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: 123456
+      discovery:
+        server-addr: 192.168.31.143:8848
+        namespace: ${spring.profiles.active}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        group: DEFAULT_GROUP
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        file-extension: yaml
+      server-addr: 192.168.31.143:8848

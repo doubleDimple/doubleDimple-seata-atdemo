@@ -6,6 +6,15 @@ server:
       charset: utf-8
 
 spring:
+  boot:
+    admin:
+      client:
+        url: http://192.168.31.143:5897/admin-server
+        instance:
+          name: stock-server
+          prefer-ip: true
+        username: admin
+        password: 123456
   datasource:
     url: jdbc:mysql://localhost:3306/seata-at-test3
     username: root
@@ -58,3 +67,12 @@ feign:
 jwt:
   secret: 2uKsDY4mPnXL3zHd4YNs+ke6dLQ9XcHHzakpxjMBt+Gr8AMILn5yeKDP5EcbIEUXuqBV3X7RliXlH+e5l3i4gA==
   expiration: 3600
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

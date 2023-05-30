@@ -12,6 +12,8 @@ import common.entity.page.PaginationResult;
 import common.entity.page.SimplePage;
 import common.entity.pojo.Orders;
 import common.entity.query.OrdersQuery;
+import common.enums.ResponseEnum;
+import common.exception.exception.CustomException;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -124,9 +126,9 @@ public class OrdersServiceImpl implements OrdersService {
 			inventory.setId(1);
 			inventory.setStockQuantity(9);
 			stockFeignApi.update(inventory);
-			//int i= 1/0;
+			int i= 1/0;
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw new CustomException(ResponseEnum.FAIL.getCode(), e.getMessage());
 		}
 	}
 

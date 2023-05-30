@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /admin-server
+spring:
+  security:
+    user:
+      name: admin
+      password: 123456
+  boot:
+    admin:
+      monitor:
+        status-interval: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

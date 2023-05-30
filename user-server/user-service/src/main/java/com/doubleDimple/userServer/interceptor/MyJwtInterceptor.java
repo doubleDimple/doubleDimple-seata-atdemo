@@ -9,7 +9,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import com.doubleDimple.users.entity.pojo.Users;
 import com.doubleDimple.users.entity.query.UsersQuery;
-import com.doubleDimple.users.exception.MyException;
+import com.doubleDimple.users.exception.CustomException;
 import com.doubleDimple.users.response.enums.ResponseEnum;
 import com.doubleDimple.users.utils.UserContext;
 
@@ -50,12 +50,12 @@ public class MyJwtInterceptor implements HandlerInterceptor {
 
         //否则进行token检查
         if (StringUtils.isBlank(token)) {
-            throw new MyException(ResponseEnum.FAIL.getCode(), "token不存在");
+            throw new CustomException(ResponseEnum.FAIL.getCode(), "token不存在");
         }
 
         //验证token
         if (!jwtUtils.validateToken(token)){
-            throw new MyException(ResponseEnum.FAIL.getCode(), "权限验证失败！");
+            throw new CustomException(ResponseEnum.FAIL.getCode(), "权限验证失败！");
         }
 
         //获取token中的用户id
@@ -64,7 +64,7 @@ public class MyJwtInterceptor implements HandlerInterceptor {
         //根据token中的userId查询数据库
         Users user = usersMapper.selectByPrimaryKey(userId);
         if (user == null) {
-            throw new MyException(ResponseEnum.FAIL.getCode(), "用户不存在");
+            throw new CustomException(ResponseEnum.FAIL.getCode(), "用户不存在");
         }
 
         //token续期

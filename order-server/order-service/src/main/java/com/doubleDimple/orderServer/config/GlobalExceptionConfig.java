@@ -1,16 +1,16 @@
-package com.doubleDimple.userServer.config;
+package com.doubleDimple.orderServer.config;
 
+import common.exception.exception.CustomException;
+import common.response.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.doubleDimple.users.exception.CustomException;
-import com.doubleDimple.users.utils.Result;
 
 @RestControllerAdvice
-public class GlobalExceptionConfig{
+public class GlobalExceptionConfig {
     @ExceptionHandler(CustomException.class)
     public Result<CustomException> handle(CustomException e){
         e.printStackTrace();
-        return Result.exception(e.getCode(),e.getMessage());
+        return Result.fail(e.getCode(),e.getMessage());
     }
 
 }

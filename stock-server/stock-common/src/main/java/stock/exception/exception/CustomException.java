@@ -1,10 +1,10 @@
-package com.doubleDimple.users.exception;
+package stock.exception.exception;
 
-import com.doubleDimple.users.response.enums.ResponseEnum;
 import lombok.Data;
+import stock.enums.ResponseEnum;
 
 @Data
-public class MyException extends RuntimeException{
+public class CustomException extends RuntimeException{
 
     private final Integer code;
 
@@ -13,7 +13,7 @@ public class MyException extends RuntimeException{
      * @param code
      * @param message
      */
-    public MyException(Integer code,String message) {
+    public CustomException(Integer code, String message) {
         super(message);
         this.code = code;
     }
@@ -22,7 +22,7 @@ public class MyException extends RuntimeException{
      * 接受枚举类型对象
      * @param
      */
-    public MyException(ResponseEnum responseEnum){
+    public CustomException(ResponseEnum responseEnum){
         super(responseEnum.getResultMessage());
         this.code = responseEnum.getCode();
     }

@@ -3,6 +3,15 @@ server:
     context-path: /order-server
 
 spring:
+  boot:
+    admin:
+      client:
+        url: http://192.168.31.143:5897/admin-server
+        instance:
+          name: order-server
+          prefer-ip: true
+        username: admin
+        password: 123456
   datasource:
     url: jdbc:mysql://localhost:3306/seata-at-test1
     username: root
@@ -48,3 +57,22 @@ mybatis:
 feign:
   hystrix:
     enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    shutdown:
+      enabled: true
+    #日志找不到404 see https://blog.csdn.net/fenglllle/article/details/109342775?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-109342775-blog-106337718.235%5Ev36%5Epc_relevant_default_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-109342775-blog-106337718.235%5Ev36%5Epc_relevant_default_base3&utm_relevant_index=2
+    #logfile:
+      #external-file: /Users/renyuanxin/logs/order-server.log
+logging:
+  pattern:
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+  file:
+    name: /Users/renyuanxin/logs/order-server.log
