@@ -430,4 +430,9 @@
 		select <include refid="base_column_list" /> from `users` where `user_id`=#{userId}
 	</select>
 
+	<!-- 根据PrimaryKey获取对象-->
+	<select id="findByUsername" resultMap="base_result_map" >
+		select <include refid="base_column_list" /> from `users` where `username`=#{username}
+	</select>
+
 </mapper>

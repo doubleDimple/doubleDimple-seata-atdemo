@@ -1,5 +1,6 @@
 package com.doubleDimple.userServer.mapper;
 
+import com.doubleDimple.users.entity.pojo.Users;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -27,4 +28,5 @@ public interface UsersMapper<T,P> extends BaseMapper<T,P> {
 	 public T selectByPrimaryKey(@Param("userId") Integer userId);
 
 
+    Users findByUsername(@Param("username")String username);
 }
