@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
-import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Date;
 
@@ -83,14 +82,14 @@ public class JwtUtils {
         return claims.get("phoneNumber", String.class);
     }
 
-    public  long getIdFromToken(String token) {
+    public  Integer getIdFromToken(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
 
-        return claims.get("id", Long.class);
+        return claims.get("userId", Integer.class);
     }
 
     public static void main(String[] args) {

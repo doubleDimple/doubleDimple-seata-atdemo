@@ -59,7 +59,7 @@ public class MyJwtInterceptor implements HandlerInterceptor {
         }
 
         //获取token中的用户id
-        Integer userId = jwtUtils.getUserIdFromToken(token);
+        Integer userId = jwtUtils.getIdFromToken(token);
 
         //根据token中的userId查询数据库
         Users user = usersMapper.selectByPrimaryKey(userId);
@@ -84,7 +84,7 @@ public class MyJwtInterceptor implements HandlerInterceptor {
          String token = (String)session.getAttribute("token");
 
          //获取token中的用户id
-         Integer userId = jwtUtils.getUserIdFromToken(token);
+         Integer userId = jwtUtils.getIdFromToken(token);
 
          //根据token中的userId查询数据库
          Users user = usersMapper.selectByPrimaryKey(userId);
