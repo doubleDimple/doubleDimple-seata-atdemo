@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.security.Key;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Date;
@@ -23,28 +24,29 @@ public class JwtUtils {
 
     // 生成JWT
     public  String generateToken(Integer userId, String username, String phoneNumber) {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + expiration * 1000);
+        Key key = Keys.hmacShaKeyFor(secret.getBytes());
 
         return Jwts.builder()
-                .claim("userId", userId)
                 .claim("username", username)
                 .claim("phoneNumber", phoneNumber)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .claim("userId", userId)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     // 验证JWT
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                    .build()
+                    .parseClaimsJws(token);
+
             return true;
         } catch (Exception e) {
-            // 验证失败
+            return false;
         }
-        return false;
     }
 
     public String renewToken(String token) {
@@ -61,34 +63,34 @@ public class JwtUtils {
         return generateToken(userId, username, phoneNumber);
     }
 
-    // 从JWT中获取用户ID
-    public Integer getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.get("userId", Integer.class);
-    }
-
-    // 从JWT中获取用户名
-    public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secret)
+    public  String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
         return claims.get("username", String.class);
     }
 
-    // 从JWT中获取手机号码
-    public String getPhoneNumberFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secret)
+    public  String getPhoneNumberFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
         return claims.get("phoneNumber", String.class);
+    }
+
+    public  long getIdFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.get("id", Long.class);
     }
 
     public static void main(String[] args) {
