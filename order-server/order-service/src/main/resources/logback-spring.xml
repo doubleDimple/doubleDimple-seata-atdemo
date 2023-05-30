@@ -44,7 +44,7 @@
 
 
     <!-- 日志输出级别  ，注意：如果不写<appender-ref ref="FILE" /> ，将导致springbootadmin找不到文件，无法查看日志 -->
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
