@@ -9,7 +9,7 @@ spring:
   boot:
     admin:
       monitor:
-        status-interval: 5000
+        status-interval: 10000ms
 
 management:
   endpoints:
