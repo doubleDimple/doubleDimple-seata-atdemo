@@ -1,2 +1,3 @@
 springboot集成seata
 增加了对nacos配置中心的支持,以及多环境的切换配置
+增加springboot admin的支持

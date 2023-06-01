@@ -11,7 +11,7 @@ spring:
       client:
         url: http://192.168.31.143:5897/admin-server
         instance:
-          name: stock-server
+          name: user-server
           prefer-ip: true
         username: admin
         password: 123456
@@ -76,3 +76,9 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
+logging:
+  pattern:
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+  file:
+    name: /Users/renyuanxin/logs/user-server.log
