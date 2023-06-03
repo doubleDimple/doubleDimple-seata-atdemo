@@ -12,6 +12,7 @@
         <module name="order-service-api" />
         <module name="stock-service-api" />
         <module name="common" />
+        <module name="auth-server" />
         <module name="adminServer" />
         <module name="order-service" />
         <module name="user-service" />
@@ -33,6 +34,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="adminServer" options="-parameters" />
+      <module name="auth-server" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="common (1)" options="-parameters" />
       <module name="common (2)" options="-parameters" />
