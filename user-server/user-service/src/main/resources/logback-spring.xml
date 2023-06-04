@@ -37,7 +37,7 @@
     </appender>
 
     <logger name="org.springframework.boot.actuate.endpoint.web.servlet" level="trace"/>
-    <!-- 解决一直不停输出测试日志-->
+    <!-- 解决admin请求动态日志一直不停输出测试日志-->
     <logger name="org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping" level="OFF"/>
 
 
