@@ -6,4 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 @FeignClient(name = "user-server")
 public interface UserFeignApi {
 
+
+
+
 }
